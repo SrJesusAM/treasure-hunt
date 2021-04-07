@@ -34,8 +34,18 @@ public class ManagerScene : MonoBehaviour
         SaveData();
     }
 
-    // Metodos 
+    private void SaveData()
+    {
+        PlayerPrefs.SetInt(NIVEL_NOMBRE, this.nivel);
+    }
 
+    private void LoadData()
+    {
+        this.nivel = PlayerPrefs.GetInt(NIVEL_NOMBRE, 1);
+    }
+
+
+    // Metodos comunes
     public void CambiarEscena(string escena)
     {
         SceneManager.LoadScene(escena);
@@ -46,24 +56,23 @@ public class ManagerScene : MonoBehaviour
         Application.Quit();
     }
 
+
+    // Metodos manejo niveles 
     public void SeleccionNivel(int nivel)
     {
-        print("Nivel anterior:" + this.nivel);
         this.nivel = nivel;
-        print("Nivel asignado:" + this.nivel);
-
-        
-
         CambiarEscena("Barcos");
     }
 
-    private void SaveData()
+    public void SiguienteNivel()
     {
-        PlayerPrefs.SetInt(NIVEL_NOMBRE, this.nivel);
+        this.nivel++;
+        if (this.nivel > 5) this.nivel = 5;
+        SeleccionNivel(this.nivel);
     }
 
-    private void LoadData()
+    public void RepetirNivel()
     {
-        this.nivel = PlayerPrefs.GetInt(NIVEL_NOMBRE, 1);
+        SeleccionNivel(this.nivel);
     }
 }
