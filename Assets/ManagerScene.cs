@@ -75,4 +75,14 @@ public class ManagerScene : MonoBehaviour
     {
         SeleccionNivel(this.nivel);
     }
+
+    // Metodos para el manejo de los barcos entre escenas
+    public void SeleccionBarco(int barco)
+    {
+        this.barco = barco;
+        print("Barco elegido:"+this.barco);
+        print("Nivel elegido:" + this.nivel);
+        //CambiarEscena("JuegoNivel" + this.nivel);
+
+    }
 }
