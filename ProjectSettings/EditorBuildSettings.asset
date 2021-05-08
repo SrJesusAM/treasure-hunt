@@ -17,4 +17,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Barcos.unity
     guid: 88734777922c94946af1f6c0cafddb44
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 81c1d3db97db97b4490ca2489f2b7702
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 4e7f170eb59fab54e83c0079dcec68e0
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 54a8a34fa9237d14a90d59b1ace49067
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: a0090c67bed7b994289f732622d87272
+  - enabled: 1
+    path: Assets/Scenes/Level5.unity
+    guid: 60f56fe2f3b5d234f92b67504ada65a4
   m_configObjects: {}

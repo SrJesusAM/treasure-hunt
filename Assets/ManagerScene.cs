@@ -9,7 +9,7 @@ public class ManagerScene : MonoBehaviour
     public int barco;
 
     private string NIVEL_NOMBRE = "Nivel";
-    // private string BARCO_NOMBRE = "Barco";
+    private string BARCO_NOMBRE = "Barco";
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +37,15 @@ public class ManagerScene : MonoBehaviour
     private void SaveData()
     {
         PlayerPrefs.SetInt(NIVEL_NOMBRE, this.nivel);
+        PlayerPrefs.SetInt(BARCO_NOMBRE, this.barco);
     }
 
     private void LoadData()
     {
         this.nivel = PlayerPrefs.GetInt(NIVEL_NOMBRE, 1);
+        this.barco = PlayerPrefs.GetInt(BARCO_NOMBRE, 1);
+        print("Barco elegido:" + this.barco);
+        print("Nivel elegido:" + this.nivel);
     }
 
 
@@ -54,6 +58,11 @@ public class ManagerScene : MonoBehaviour
     public void Salir()
     {
         Application.Quit();
+    }
+    
+    public void test()
+    {
+        print("test");
     }
 
 
@@ -80,9 +89,7 @@ public class ManagerScene : MonoBehaviour
     public void SeleccionBarco(int barco)
     {
         this.barco = barco;
-        print("Barco elegido:"+this.barco);
-        print("Nivel elegido:" + this.nivel);
-        //CambiarEscena("JuegoNivel" + this.nivel);
+        CambiarEscena("Level" + this.nivel);
 
     }
 }
