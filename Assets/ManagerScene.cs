@@ -7,9 +7,13 @@ public class ManagerScene : MonoBehaviour
 {
     public int nivel;
     public int barco;
+    public int vidas;
+    public int flashbacks;
 
     private string NIVEL_NOMBRE = "Nivel";
     private string BARCO_NOMBRE = "Barco";
+    private string NUMERO_VIDAS = "Vidas";
+    private string NUMERO_FLASHBACKS = "Flashbacks";
 
     // Start is called before the first frame update
     void Start()
@@ -38,14 +42,18 @@ public class ManagerScene : MonoBehaviour
     {
         PlayerPrefs.SetInt(NIVEL_NOMBRE, this.nivel);
         PlayerPrefs.SetInt(BARCO_NOMBRE, this.barco);
+        PlayerPrefs.SetInt(NUMERO_VIDAS, this.vidas);
+        PlayerPrefs.SetInt(NUMERO_FLASHBACKS, this.flashbacks);
+
     }
 
     private void LoadData()
     {
         this.nivel = PlayerPrefs.GetInt(NIVEL_NOMBRE, 1);
         this.barco = PlayerPrefs.GetInt(BARCO_NOMBRE, 1);
-        print("Barco elegido:" + this.barco);
-        print("Nivel elegido:" + this.nivel);
+        this.vidas = PlayerPrefs.GetInt(NUMERO_VIDAS, 3);
+        this.flashbacks = PlayerPrefs.GetInt(NUMERO_FLASHBACKS, 3);
+
     }
 
 
@@ -60,11 +68,6 @@ public class ManagerScene : MonoBehaviour
         Application.Quit();
     }
     
-    public void test()
-    {
-        print("test");
-    }
-
 
     // Metodos manejo niveles 
     public void SeleccionNivel(int nivel)
@@ -77,12 +80,12 @@ public class ManagerScene : MonoBehaviour
     {
         this.nivel++;
         if (this.nivel > 5) this.nivel = 5;
-        SeleccionNivel(this.nivel);
+        CambiarEscena("Level" + this.nivel);
     }
 
     public void RepetirNivel()
     {
-        SeleccionNivel(this.nivel);
+        CambiarEscena("Level"+this.nivel);
     }
 
     // Metodos para el manejo de los barcos entre escenas

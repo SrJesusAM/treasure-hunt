@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
 
     public Sprite vacio;
 
+    private int vidas;
+    private int flashbacks;
+
     private int contador = 0;
     private string[] solucion = new string[5];
 
@@ -46,8 +49,27 @@ public class GameController : MonoBehaviour
                 break;
         }
 
+        this.vidas = managerScene.vidas;
+        actualizarVidas();
 
-    }        
+        this.flashbacks = managerScene.flashbacks;
+        actualizarFlashbacks();
+
+
+
+    }  
+    
+    private void actualizarVidas()
+    {
+        GameObject vidaNObject = GameObject.Find("VidaNumber");
+        vidaNObject.GetComponent<Text>().text = "x " + this.vidas;
+    }
+
+    private void actualizarFlashbacks()
+    {
+        GameObject flashbackNObject = GameObject.Find("FlashbackNumber");
+        flashbackNObject.GetComponent<Text>().text = "x " + this.flashbacks;
+    }
 
 
     public void movimiento(string flecha)
@@ -92,23 +114,25 @@ public class GameController : MonoBehaviour
 
     public void borrarMovimientoAnterior()
     {
-
-        if (contador > 0)
+        if (flashbacks > 0)
         {
-            string imgSolPanelName = "imgSol" + contador;
-            GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
-            imgSolObj.GetComponent<Image>().sprite = vacio;
-            solucion[contador - 1] = "";
-
-            contador--;
-            if (contador <= 0)
+            if (contador > 0)
             {
-                contador = 0;
-            }
-            
-        }
+                string imgSolPanelName = "imgSol" + contador;
+                GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
+                imgSolObj.GetComponent<Image>().sprite = vacio;
+                solucion[contador - 1] = "";
+
+                contador--;
+                if (contador <= 0) contador = 0;
+
+                flashbacks--;
+                if (flashbacks <= 0) flashbacks = 0;
+                actualizarFlashbacks();
+            }
+        }
         
     }
 
