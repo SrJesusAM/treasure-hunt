@@ -92,6 +92,28 @@ public class ManagerScene : MonoBehaviour
     public void SeleccionBarco(int barco)
     {
         this.barco = barco;
+
+        switch (barco)
+        {
+
+            case 1:
+                this.vidas = 3;
+                this.flashbacks = 5;
+                break;
+            case 2:
+                this.vidas = 4;
+                this.flashbacks = 4;
+                break;
+            case 3:
+                this.vidas = 5;
+                this.flashbacks = 3;
+                break;
+            default:
+                this.vidas = 3;
+                this.flashbacks = 5;
+                break;
+        }
+
         CambiarEscena("Level" + this.nivel);
 
     }

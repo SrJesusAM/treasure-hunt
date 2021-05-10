@@ -21,18 +21,41 @@ public class GameController : MonoBehaviour
     private int flashbacks;
 
     private int contador = 0;
-    private string[] solucion = new string[5];
+    private string ultimoMov;
+
+    private int[] coordenada = { 0, 0 };
+    private int[] coordenadaResultado = { 2, -2 };
+
+    // Vida y flasback extra
+    private int[] coordenadaVida = { 1, -1 };
+    private int[] coordenadaFlashback = { 2, 0 };
+    private bool ganarVida = false;
+    private bool ganarFlashback = false;
+
+    // GameObjects
+    private GameObject btnReiniciar;
+    private GameObject panelVictoria;
+    private GameObject gameManager;
+
+    // Managers
+    private ManagerScene managerScene;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject gameManager = GameObject.Find("GameManagerLevels");
-        ManagerScene managerScene = gameManager.GetComponent<ManagerScene>();
+
+        btnReiniciar = GameObject.Find("btnRepetir");
+        btnReiniciar.SetActive(false);
+
+        panelVictoria = GameObject.Find("panelVictoria");
+        panelVictoria.SetActive(false);
+
+        this.gameManager = GameObject.Find("GameManagerLevels");
+        this.managerScene = gameManager.GetComponent<ManagerScene>();
 
         GameObject barcoObject = GameObject.Find("Barco");
-        print("Barco elegido scene"+ managerScene.barco);
-
-        switch (managerScene.barco)
+        
+        switch (this.managerScene.barco)
         {
 
             case 1:
@@ -55,7 +78,7 @@ public class GameController : MonoBehaviour
         this.flashbacks = managerScene.flashbacks;
         actualizarFlashbacks();
 
-
+        
 
     }  
     
@@ -74,7 +97,7 @@ public class GameController : MonoBehaviour
 
     public void movimiento(string flecha)
     {
-        print(contador);
+        
 
         if (contador < 5)
         {
@@ -82,26 +105,30 @@ public class GameController : MonoBehaviour
             string imgSolPanelName = "imgSol" + contador;
 
             GameObject imgSolObj = GameObject.Find(imgSolPanelName);
+            ultimoMov = flecha;
             switch (flecha)
             {
 
                 case "ABAJO":
                     imgSolObj.GetComponent<Image>().sprite = flechaAbajo;
-                    solucion[contador - 1] = "ABAJO";
+                    coordenada[1]--;
                     break;
                 case "ARRIBA":
-                    imgSolObj.GetComponent<Image>().sprite = flechaArriba;
-                    solucion[contador - 1] = "ARRIBA";
+                    imgSolObj.GetComponent<Image>().sprite = flechaArriba;                    
+                    coordenada[1]++;
                     break;
                 case "DERECHA":
                     imgSolObj.GetComponent<Image>().sprite = flechaDerecha;
-                    solucion[contador - 1] = "DERECHA";
+                    coordenada[0]++;
                     break;
                 default:
                     imgSolObj.GetComponent<Image>().sprite = flechaIzquierda;
-                    solucion[contador - 1] = "IZQUIERDA";
+                    coordenada[0]--;
                     break;
             }
+
+            if (coordenadaVida[0] == coordenada[0] && coordenadaVida[1] == coordenada[1]) ganarVida = true;
+            if (coordenadaFlashback[0] == coordenada[0] && coordenadaFlashback[1] == coordenada[1]) ganarVida = true;
 
 
             if (contador >= 5)
@@ -110,6 +137,7 @@ public class GameController : MonoBehaviour
             }
             
         }
+        
     }
 
     public void borrarMovimientoAnterior()
@@ -123,7 +151,6 @@ public class GameController : MonoBehaviour
                 GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
                 imgSolObj.GetComponent<Image>().sprite = vacio;
-                solucion[contador - 1] = "";
 
                 contador--;
                 if (contador <= 0) contador = 0;
@@ -131,19 +158,90 @@ public class GameController : MonoBehaviour
                 flashbacks--;
                 if (flashbacks <= 0) flashbacks = 0;
                 actualizarFlashbacks();
+
+                switch (ultimoMov)
+                {
+
+                    case "ABAJO":
+                        coordenada[1]++;
+                        break;
+                    case "ARRIBA":
+                        coordenada[1]--;
+                        break;
+                    case "DERECHA":
+                        coordenada[0]--;
+                        break;
+                    default:
+                        coordenada[0]++;
+                        break;
+                }
             }
+            
         }
         
     }
 
     public void finalizar()
     {
-
-        for (int i =0; i < contador; i++)
+        if (this.vidas >= 0)
         {
-            print("i:"+i +" - " + solucion[i]);
-        } 
+            
+            if (coordenada[0] == coordenadaResultado[0] && coordenada[1] == coordenadaResultado[1])
+            {
 
+                if (ganarVida) this.vidas++;
+                if (ganarFlashback) this.flashbacks++;
+
+                actualizarVidas();
+                actualizarFlashbacks();
+
+                this.managerScene.vidas = this.vidas;
+                this.managerScene.flashbacks = this.flashbacks;
+
+
+                panelVictoria.SetActive(true);
+            }
+            else
+            {
+                this.vidas--;
+                actualizarVidas();
+
+                bool fin = false;
+                if (this.vidas < 0) fin = true;
+
+                mostrarMensaje(fin);
+            }
+        }
+        else
+        {
+
+        }
+    }
+
+    private void mostrarMensaje(bool fin)
+    {
+        
+        GameObject flashbackNObject = GameObject.Find("message");
+
+        if (fin)
+        {
+            flashbackNObject.GetComponent<Text>().text = "No te quedan Vidas, ¿Reiniciamos?";
+            flashbackNObject.GetComponent<Text>().color = Color.green;
+
+            if (btnReiniciar != null)
+            {
+                btnReiniciar.SetActive(true);
+            }
+
+        }
+        else
+        {
+            flashbackNObject.GetComponent<Text>().text = "Intentelo de nuevo";
+            flashbackNObject.GetComponent<Text>().color = Color.red;
+        }
+
+
+        
     }
 
 
