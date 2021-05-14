@@ -32,10 +32,20 @@ public class GameController : MonoBehaviour
     private bool ganarVida = false;
     private bool ganarFlashback = false;
 
+    // Movimiento
+    public float velocidad;
+    private bool isMove = false;
+    private bool flashbackMove = false;
+    private float xMov;
+    private float yMov;
+    private float distanciaX;
+    private float distanciaY;
+
     // GameObjects
     private GameObject btnReiniciar;
     private GameObject panelVictoria;
     private GameObject gameManager;
+    private GameObject barcoObject;
 
     // Managers
     private ManagerScene managerScene;
@@ -53,8 +63,14 @@ public class GameController : MonoBehaviour
         this.gameManager = GameObject.Find("GameManagerLevels");
         this.managerScene = gameManager.GetComponent<ManagerScene>();
 
-        GameObject barcoObject = GameObject.Find("Barco");
-        
+        barcoObject = GameObject.Find("Barco");
+        this.xMov = barcoObject.transform.position.x;
+        this.yMov = barcoObject.transform.position.y;
+
+        // Se cargara una distancia segun el nivel del juego (TODO)
+        distanciaX = 150;
+        distanciaY = 60;
+
         switch (this.managerScene.barco)
         {
 
@@ -79,9 +95,84 @@ public class GameController : MonoBehaviour
         actualizarFlashbacks();
 
         
+    }
 
-    }  
-    
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (isMove)
+        {
+            moverBarcoAnimacion();
+        }
+
+        if (flashbackMove)
+        {
+            barcoObject.transform.position = new Vector3(this.xMov, this.yMov, barcoObject.transform.position.z);
+            flashbackMove = !flashbackMove;
+        }
+         
+        
+
+    }
+
+    private void moverBarcoAnimacion()
+    {
+        float x = barcoObject.transform.position.x;
+        float y = barcoObject.transform.position.y;
+
+        switch (ultimoMov)
+        {
+            
+            case "ABAJO":
+                
+                if (y >= this.yMov)
+                {
+                    barcoObject.transform.position += Vector3.down * this.velocidad * Time.deltaTime;
+                }
+                else
+                {
+                    isMove = false;
+                }
+                break;
+            case "ARRIBA":
+                if (y <= this.xMov)
+                {
+                    barcoObject.transform.position += Vector3.up * this.velocidad * Time.deltaTime;
+                }
+                else
+                {
+                    isMove = false;
+                }
+                break;
+            case "DERECHA":
+                if (x <= this.xMov)
+                {
+                    barcoObject.transform.position += Vector3.right * this.velocidad * Time.deltaTime;
+                }
+                else
+                {
+                    isMove = false;
+                }
+                break;
+            case "IZQUIERDA":
+                if (x >= this.xMov)
+                {
+                    barcoObject.transform.position += Vector3.left * this.velocidad * Time.deltaTime;
+                }
+                else
+                {
+                    isMove = false;
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
     private void actualizarVidas()
     {
         GameObject vidaNObject = GameObject.Find("VidaNumber");
@@ -97,87 +188,105 @@ public class GameController : MonoBehaviour
 
     public void movimiento(string flecha)
     {
-        
-
-        if (contador < 5)
+        print(isMove);
+        if (!isMove)
         {
-            contador++;
-            string imgSolPanelName = "imgSol" + contador;
-
-            GameObject imgSolObj = GameObject.Find(imgSolPanelName);
-            ultimoMov = flecha;
-            switch (flecha)
+            if (contador < 5)
             {
+                contador++;
+                string imgSolPanelName = "imgSol" + contador;
 
-                case "ABAJO":
-                    imgSolObj.GetComponent<Image>().sprite = flechaAbajo;
-                    coordenada[1]--;
-                    break;
-                case "ARRIBA":
-                    imgSolObj.GetComponent<Image>().sprite = flechaArriba;                    
-                    coordenada[1]++;
-                    break;
-                case "DERECHA":
-                    imgSolObj.GetComponent<Image>().sprite = flechaDerecha;
-                    coordenada[0]++;
-                    break;
-                default:
-                    imgSolObj.GetComponent<Image>().sprite = flechaIzquierda;
-                    coordenada[0]--;
-                    break;
+                GameObject imgSolObj = GameObject.Find(imgSolPanelName);
+                ultimoMov = flecha;
+                switch (flecha)
+                {
+
+                    case "ABAJO":
+                        imgSolObj.GetComponent<Image>().sprite = flechaAbajo;
+                        this.yMov -= distanciaY;
+                        coordenada[1]--;
+                        break;
+                    case "ARRIBA":
+                        imgSolObj.GetComponent<Image>().sprite = flechaArriba;
+                        this.yMov += distanciaY;
+                        coordenada[1]++;
+                        break;
+                    case "DERECHA":
+                        imgSolObj.GetComponent<Image>().sprite = flechaDerecha;
+                        this.xMov += distanciaX;
+                        coordenada[0]++;
+                        break;
+                    default:
+                        imgSolObj.GetComponent<Image>().sprite = flechaIzquierda;
+                        coordenada[0]--;
+                        this.xMov -= distanciaX;
+                        break;
+                }
+                isMove = true;
+                if (coordenadaVida[0] == coordenada[0] && coordenadaVida[1] == coordenada[1]) ganarVida = true;
+                if (coordenadaFlashback[0] == coordenada[0] && coordenadaFlashback[1] == coordenada[1]) ganarVida = true;
+
+
+                if (contador >= 5)
+                {
+                    contador = 5;
+                }
+
             }
-
-            if (coordenadaVida[0] == coordenada[0] && coordenadaVida[1] == coordenada[1]) ganarVida = true;
-            if (coordenadaFlashback[0] == coordenada[0] && coordenadaFlashback[1] == coordenada[1]) ganarVida = true;
-
-
-            if (contador >= 5)
-            {
-                contador = 5;
-            }
-            
         }
+      
         
     }
 
     public void borrarMovimientoAnterior()
     {
-        if (flashbacks > 0)
+        if (!isMove)
         {
-
-            if (contador > 0)
+            if (flashbacks > 0)
             {
-                string imgSolPanelName = "imgSol" + contador;
-                GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
-                imgSolObj.GetComponent<Image>().sprite = vacio;
-
-                contador--;
-                if (contador <= 0) contador = 0;
-
-                flashbacks--;
-                if (flashbacks <= 0) flashbacks = 0;
-                actualizarFlashbacks();
-
-                switch (ultimoMov)
+                if (contador > 0)
                 {
+                    string imgSolPanelName = "imgSol" + contador;
+                    GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
-                    case "ABAJO":
-                        coordenada[1]++;
-                        break;
-                    case "ARRIBA":
-                        coordenada[1]--;
-                        break;
-                    case "DERECHA":
-                        coordenada[0]--;
-                        break;
-                    default:
-                        coordenada[0]++;
-                        break;
+                    imgSolObj.GetComponent<Image>().sprite = vacio;
+
+                    contador--;
+                    if (contador <= 0) contador = 0;
+
+                    flashbacks--;
+                    if (flashbacks <= 0) flashbacks = 0;
+                    actualizarFlashbacks();
+
+                    switch (ultimoMov)
+                    {
+
+                        case "ABAJO":
+                            coordenada[1]++;
+                            this.yMov += distanciaY;
+                            break;
+                        case "ARRIBA":
+                            coordenada[1]--;
+                            this.yMov -= distanciaY;
+                            break;
+                        case "DERECHA":
+                            coordenada[0]--;
+                            this.xMov -= distanciaX;
+                            break;
+                        default:
+                            coordenada[0]++;
+                            this.xMov += distanciaX;
+                            break;
+                    }
+
+                    flashbackMove = true;
                 }
+
             }
-            
         }
+
+     
         
     }
 
@@ -245,9 +354,4 @@ public class GameController : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
