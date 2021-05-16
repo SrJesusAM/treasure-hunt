@@ -21,25 +21,32 @@ public class GameController : MonoBehaviour
     private int flashbacks;
 
     private int contador = 0;
+    private string[] movimientos;
     private string ultimoMov;
 
-    private int[] coordenada = { 0, 0 };
-    private int[] coordenadaResultado = { 2, -2 };
+    private int[] coordenada = { 0, 2 };
+    private int[] coordenadaResultado = { 2, 0 };
+    private int[] posicionInicial = { 0, 2 };
+    private int[] limitesX = { 0, 2 };
+    private int[] limitesY = { 0, 2 };
 
     // Vida y flasback extra
-    private int[] coordenadaVida = { 1, -1 };
-    private int[] coordenadaFlashback = { 2, 0 };
+    private int[] coordenadaVida = { 1, 1 };
+    private int[] coordenadaFlashback = { 2, 2 };
     private bool ganarVida = false;
     private bool ganarFlashback = false;
 
     // Movimiento
     public float velocidad;
-    private bool isMove = false;
-    private bool flashbackMove = false;
+    private bool finalizado = false;
+    private bool finAnimacion = false;
     private float xMov;
     private float yMov;
     private float distanciaX;
     private float distanciaY;
+
+    private string ultimoMovAnimacion;
+    private int contadorMovimientos = 0;
 
     // GameObjects
     private GameObject btnReiniciar;
@@ -70,6 +77,7 @@ public class GameController : MonoBehaviour
         // Se cargara una distancia segun el nivel del juego (TODO)
         distanciaX = 150;
         distanciaY = 60;
+        movimientos = new string[5];
 
         switch (this.managerScene.barco)
         {
@@ -102,17 +110,18 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        if (isMove)
+        if (finalizado)
         {
-            moverBarcoAnimacion();
-        }
-
-        if (flashbackMove)
-        {
-            barcoObject.transform.position = new Vector3(this.xMov, this.yMov, barcoObject.transform.position.z);
-            flashbackMove = !flashbackMove;
-        }
-         
+           
+            if (!finAnimacion)
+            {
+                moverBarcoAnimacion();
+            } else
+            {
+                panelVictoria.SetActive(true);
+            }
+            
+        }         
         
 
     }
@@ -122,7 +131,9 @@ public class GameController : MonoBehaviour
         float x = barcoObject.transform.position.x;
         float y = barcoObject.transform.position.y;
 
-        switch (ultimoMov)
+        print(contador + " - " + this.ultimoMovAnimacion);
+
+        switch (this.ultimoMovAnimacion)
         {
             
             case "ABAJO":
@@ -133,7 +144,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    isMove = false;
+                    siguienteMovimiento();
                 }
                 break;
             case "ARRIBA":
@@ -143,7 +154,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    isMove = false;
+                    siguienteMovimiento();
                 }
                 break;
             case "DERECHA":
@@ -153,7 +164,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    isMove = false;
+                    siguienteMovimiento();
                 }
                 break;
             case "IZQUIERDA":
@@ -163,13 +174,50 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    isMove = false;
+                    siguienteMovimiento();
                 }
                 break;
             default:
+                finAnimacion = true;
                 break;
         }
 
+    }
+
+
+    private void siguienteMovimiento()
+    {
+        if (contadorMovimientos < contador)
+        {
+            this.contadorMovimientos++;
+            this.ultimoMovAnimacion = this.movimientos[contadorMovimientos];
+            actualizarPosicionMovimiento();
+        }
+        else
+        {
+            finAnimacion = true;
+        }
+
+    }
+
+    private void actualizarPosicionMovimiento()
+    {
+        switch (this.movimientos[contadorMovimientos])
+        {
+
+            case "ABAJO":
+                this.yMov -= distanciaY;
+                break;
+            case "ARRIBA":
+                this.yMov += distanciaY;
+                break;
+            case "DERECHA":
+                this.xMov += distanciaX;
+                break;
+            default:
+                this.xMov -= distanciaX;
+                break;
+        }
     }
 
 
@@ -188,116 +236,102 @@ public class GameController : MonoBehaviour
 
     public void movimiento(string flecha)
     {
-        print(isMove);
-        if (!isMove)
+        if (contador < 5)
         {
-            if (contador < 5)
+
+            movimientos[contador] = flecha;
+
+            contador++;
+            string imgSolPanelName = "imgSol" + contador;
+
+            GameObject imgSolObj = GameObject.Find(imgSolPanelName);
+            ultimoMov = flecha;
+            switch (flecha)
             {
-                contador++;
-                string imgSolPanelName = "imgSol" + contador;
 
-                GameObject imgSolObj = GameObject.Find(imgSolPanelName);
-                ultimoMov = flecha;
-                switch (flecha)
-                {
-
-                    case "ABAJO":
-                        imgSolObj.GetComponent<Image>().sprite = flechaAbajo;
-                        this.yMov -= distanciaY;
-                        coordenada[1]--;
-                        break;
-                    case "ARRIBA":
-                        imgSolObj.GetComponent<Image>().sprite = flechaArriba;
-                        this.yMov += distanciaY;
-                        coordenada[1]++;
-                        break;
-                    case "DERECHA":
-                        imgSolObj.GetComponent<Image>().sprite = flechaDerecha;
-                        this.xMov += distanciaX;
-                        coordenada[0]++;
-                        break;
-                    default:
-                        imgSolObj.GetComponent<Image>().sprite = flechaIzquierda;
-                        coordenada[0]--;
-                        this.xMov -= distanciaX;
-                        break;
-                }
-                isMove = true;
-                if (coordenadaVida[0] == coordenada[0] && coordenadaVida[1] == coordenada[1]) ganarVida = true;
-                if (coordenadaFlashback[0] == coordenada[0] && coordenadaFlashback[1] == coordenada[1]) ganarVida = true;
-
-
-                if (contador >= 5)
-                {
-                    contador = 5;
-                }
-
+                case "ABAJO":
+                    imgSolObj.GetComponent<Image>().sprite = flechaAbajo;
+                    coordenada[1]--;
+                    break;
+                case "ARRIBA":
+                    imgSolObj.GetComponent<Image>().sprite = flechaArriba;
+                    coordenada[1]++;
+                    break;
+                case "DERECHA":
+                    imgSolObj.GetComponent<Image>().sprite = flechaDerecha;
+                    coordenada[0]++;
+                    break;
+                default:
+                    imgSolObj.GetComponent<Image>().sprite = flechaIzquierda;
+                    coordenada[0]--;
+                    break;
             }
+
+            if (coordenadaVida[0] == coordenada[0] && coordenadaVida[1] == coordenada[1]) ganarVida = true;
+            if (coordenadaFlashback[0] == coordenada[0] && coordenadaFlashback[1] == coordenada[1]) ganarVida = true;
+
+
+            if (contador >= 5)
+            {
+                contador = 5;
+            }
+
         }
+        
       
         
     }
 
     public void borrarMovimientoAnterior()
     {
-        if (!isMove)
+
+        if (flashbacks > 0)
         {
-            if (flashbacks > 0)
+
+            if (contador > 0)
             {
+                string imgSolPanelName = "imgSol" + contador;
+                GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
-                if (contador > 0)
+                imgSolObj.GetComponent<Image>().sprite = vacio;
+
+                contador--;
+                if (contador <= 0) contador = 0;
+
+                flashbacks--;
+                if (flashbacks <= 0) flashbacks = 0;
+                actualizarFlashbacks();
+
+                switch (ultimoMov)
                 {
-                    string imgSolPanelName = "imgSol" + contador;
-                    GameObject imgSolObj = GameObject.Find(imgSolPanelName);
 
-                    imgSolObj.GetComponent<Image>().sprite = vacio;
-
-                    contador--;
-                    if (contador <= 0) contador = 0;
-
-                    flashbacks--;
-                    if (flashbacks <= 0) flashbacks = 0;
-                    actualizarFlashbacks();
-
-                    switch (ultimoMov)
-                    {
-
-                        case "ABAJO":
-                            coordenada[1]++;
-                            this.yMov += distanciaY;
-                            break;
-                        case "ARRIBA":
-                            coordenada[1]--;
-                            this.yMov -= distanciaY;
-                            break;
-                        case "DERECHA":
-                            coordenada[0]--;
-                            this.xMov -= distanciaX;
-                            break;
-                        default:
-                            coordenada[0]++;
-                            this.xMov += distanciaX;
-                            break;
-                    }
-
-                    flashbackMove = true;
+                    case "ABAJO":
+                        coordenada[1]++;
+                        break;
+                    case "ARRIBA":
+                        coordenada[1]--;
+                        break;
+                    case "DERECHA":
+                        coordenada[0]--;
+                        break;
+                    default:
+                        coordenada[0]++;
+                        break;
                 }
-
             }
+
         }
+        
 
      
-        
     }
 
     public void finalizar()
     {
         if (this.vidas >= 0)
         {
-            
-            if (coordenada[0] == coordenadaResultado[0] && coordenada[1] == coordenadaResultado[1])
+            if (coordenada[0] == coordenadaResultado[0] && coordenada[1] == coordenadaResultado[1] && comprobarCamino())
             {
-
                 if (ganarVida) this.vidas++;
                 if (ganarFlashback) this.flashbacks++;
 
@@ -307,8 +341,10 @@ public class GameController : MonoBehaviour
                 this.managerScene.vidas = this.vidas;
                 this.managerScene.flashbacks = this.flashbacks;
 
+                this.finalizado = true;
+                this.ultimoMovAnimacion = this.movimientos[contadorMovimientos];
+                actualizarPosicionMovimiento();
 
-                panelVictoria.SetActive(true);
             }
             else
             {
@@ -325,6 +361,53 @@ public class GameController : MonoBehaviour
         {
 
         }
+    }
+
+
+    private bool comprobarCamino()
+    {
+
+        bool caminoGanador = true;
+        int[] posActual = posicionInicial;
+        for (int i = 0; i < contador && caminoGanador; i++)
+        {
+
+            posActual = devolverPosicionActual(posActual, movimientos[i]);
+            print(posicionInicial[0] +","+ posicionInicial[1]);
+            if (!(limitesX[0] <= posActual[0] && posActual[0] <= limitesX[1] && 
+                limitesY[0] <= posicionInicial[1] && posicionInicial[1] <= limitesY[1]))
+            {
+                caminoGanador = false;
+            }
+        }
+
+        print(caminoGanador);
+
+        return caminoGanador;
+    }
+
+    private int[] devolverPosicionActual(int[] posicionActual, string movimientoActual)
+    {
+
+
+        switch (movimientoActual)
+        {
+
+            case "ABAJO":
+                posicionActual[1]--;
+                break;
+            case "ARRIBA":
+                posicionActual[1]++;
+                break;
+            case "DERECHA":
+                posicionActual[0]++;
+                break;
+            default:
+                posicionActual[0]--;
+                break;
+        }
+
+        return posicionActual;
     }
 
     private void mostrarMensaje(bool fin)
