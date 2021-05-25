@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,15 +25,15 @@ public class GameController : MonoBehaviour
     private string[] movimientos;
     private string ultimoMov;
 
-    private int[] coordenada = { 0, 2 };
-    private int[] coordenadaResultado = { 2, 0 };
-    private int[] posicionInicial = { 0, 2 };
-    private int[] limitesX = { 0, 2 };
-    private int[] limitesY = { 0, 2 };
+    public int[] coordenada = new int[2]; // Nivel 1 { 0, 1 };
+    public int[] coordenadaResultado = new int[2]; // { 1, 0 };
+    public int[] posicionInicial = new int[2]; // { 0, 1 };
+    public int[] limitesX = new int[2]; // { 0, 1 };
+    public int[] limitesY = new int[2]; // { 0, 1 };
 
     // Vida y flasback extra
-    private int[] coordenadaVida = { 1, 1 };
-    private int[] coordenadaFlashback = { 2, 2 };
+    public int[] coordenadaVida = new int[2]; // { 0, 0 };
+    public int[] coordenadaFlashback = new int[2]; // { 1, 1 };
     private bool ganarVida = false;
     private bool ganarFlashback = false;
 
@@ -42,8 +43,8 @@ public class GameController : MonoBehaviour
     private bool finAnimacion = false;
     private float xMov;
     private float yMov;
-    private float distanciaX;
-    private float distanciaY;
+    public float distanciaX;
+    public float distanciaY;
 
     private string ultimoMovAnimacion;
     private int contadorMovimientos = 0;
@@ -74,9 +75,6 @@ public class GameController : MonoBehaviour
         this.xMov = barcoObject.transform.position.x;
         this.yMov = barcoObject.transform.position.y;
 
-        // Se cargara una distancia segun el nivel del juego (TODO)
-        distanciaX = 150;
-        distanciaY = 60;
         movimientos = new string[5];
 
         switch (this.managerScene.barco)
@@ -118,6 +116,7 @@ public class GameController : MonoBehaviour
                 moverBarcoAnimacion();
             } else
             {
+                Thread.Sleep(1500);
                 panelVictoria.SetActive(true);
             }
             
@@ -131,7 +130,7 @@ public class GameController : MonoBehaviour
         float x = barcoObject.transform.position.x;
         float y = barcoObject.transform.position.y;
 
-        print(contador + " - " + this.ultimoMovAnimacion);
+        // print(contador + " - " + this.ultimoMovAnimacion);
 
         switch (this.ultimoMovAnimacion)
         {
@@ -373,7 +372,7 @@ public class GameController : MonoBehaviour
         {
 
             posActual = devolverPosicionActual(posActual, movimientos[i]);
-            print(posicionInicial[0] +","+ posicionInicial[1]);
+            // print(posicionInicial[0] +","+ posicionInicial[1]);
             if (!(limitesX[0] <= posActual[0] && posActual[0] <= limitesX[1] && 
                 limitesY[0] <= posicionInicial[1] && posicionInicial[1] <= limitesY[1]))
             {

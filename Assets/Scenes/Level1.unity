@@ -1223,7 +1223,16 @@ MonoBehaviour:
   flechaDerecha: {fileID: 21300000, guid: 59a94f20b942482488c68f60a375f838, type: 3}
   flechaIzquierda: {fileID: 21300000, guid: 8e9e4e8a15de2644fa673e84efa46ea7, type: 3}
   vacio: {fileID: 21300000, guid: 3a14d0e6ffe954f4299b68581f8f347d, type: 3}
+  coordenada: 0000000001000000
+  coordenadaResultado: 0100000000000000
+  posicionInicial: 0000000001000000
+  limitesX: 0000000001000000
+  limitesY: 0000000001000000
+  coordenadaVida: 0000000000000000
+  coordenadaFlashback: 0100000001000000
   velocidad: 40
+  distanciaX: 360
+  distanciaY: 170
 --- !u!4 &619251923
 Transform:
   m_ObjectHideFlags: 0
@@ -1932,7 +1941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5fd3dca38ec10854db6366a24244ea5e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0cc348226cbafd34aac03d91daf8a224, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
