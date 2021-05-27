@@ -261,7 +261,7 @@ public class GameController : MonoBehaviour
 
             contador++;
             string imgSolPanelName = "imgSol" + contador;
-            print(imgSolPanelName);
+            // print(imgSolPanelName);
 
             GameObject imgSolObj = GameObject.Find(imgSolPanelName);
             ultimoMov = flecha;
@@ -304,7 +304,7 @@ public class GameController : MonoBehaviour
     public void borrarMovimientoAnterior()
     {
 
-        if (flashbacks > 0)
+        if (flashbacks > 0 && !finalizado)
         {
 
             if (contador > 0)
@@ -347,7 +347,7 @@ public class GameController : MonoBehaviour
 
     public void finalizar()
     {
-        if (this.vidas >= 0)
+        if (this.vidas >= 0 && !finalizado)
         {
             if (coordenada[0] == coordenadaResultado[0] && coordenada[1] == coordenadaResultado[1] && comprobarCamino())
             {
@@ -400,7 +400,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        print(caminoGanador);
+        // print(caminoGanador);
 
         return caminoGanador;
     }
