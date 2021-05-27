@@ -48,9 +48,10 @@ public class GameController : MonoBehaviour
 
     private string ultimoMovAnimacion;
     private int contadorMovimientos = 0;
+    private int maxMovimientos;
 
     // GameObjects
-    private GameObject btnReiniciar;
+    private GameObject panelDerrota;
     private GameObject panelVictoria;
     private GameObject gameManager;
     private GameObject barcoObject;
@@ -62,8 +63,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
 
-        btnReiniciar = GameObject.Find("btnRepetir");
-        btnReiniciar.SetActive(false);
+        panelDerrota = GameObject.Find("panelDerrota");
+        panelDerrota.SetActive(false);
 
         panelVictoria = GameObject.Find("panelVictoria");
         panelVictoria.SetActive(false);
@@ -75,7 +76,18 @@ public class GameController : MonoBehaviour
         this.xMov = barcoObject.transform.position.x;
         this.yMov = barcoObject.transform.position.y;
 
-        movimientos = new string[5];
+        this.managerScene.nivel = 4;
+        if (this.managerScene.nivel < 4)
+        {
+            maxMovimientos = 5;
+        } else
+        {
+            maxMovimientos = 10;
+            
+        }
+
+        movimientos = new string[maxMovimientos];
+
 
         switch (this.managerScene.barco)
         {
@@ -116,7 +128,7 @@ public class GameController : MonoBehaviour
                 moverBarcoAnimacion();
             } else
             {
-                Thread.Sleep(1500);
+                if (!panelVictoria.activeSelf) Thread.Sleep(1500);
                 panelVictoria.SetActive(true);
             }
             
@@ -186,9 +198,10 @@ public class GameController : MonoBehaviour
 
     private void siguienteMovimiento()
     {
-        if (contadorMovimientos < contador)
+        if (contadorMovimientos < contador - 1)
         {
             this.contadorMovimientos++;
+
             this.ultimoMovAnimacion = this.movimientos[contadorMovimientos];
             actualizarPosicionMovimiento();
         }
@@ -235,13 +248,14 @@ public class GameController : MonoBehaviour
 
     public void movimiento(string flecha)
     {
-        if (contador < 5)
+        if (contador < maxMovimientos)
         {
 
             movimientos[contador] = flecha;
 
             contador++;
             string imgSolPanelName = "imgSol" + contador;
+            print(imgSolPanelName);
 
             GameObject imgSolObj = GameObject.Find(imgSolPanelName);
             ultimoMov = flecha;
@@ -270,9 +284,9 @@ public class GameController : MonoBehaviour
             if (coordenadaFlashback[0] == coordenada[0] && coordenadaFlashback[1] == coordenada[1]) ganarVida = true;
 
 
-            if (contador >= 5)
+            if (contador >=  maxMovimientos)
             {
-                contador = 5;
+                contador = maxMovimientos;
             }
 
         }
@@ -416,13 +430,7 @@ public class GameController : MonoBehaviour
 
         if (fin)
         {
-            flashbackNObject.GetComponent<Text>().text = "No te quedan Vidas, ¿Reiniciamos?";
-            flashbackNObject.GetComponent<Text>().color = Color.green;
-
-            if (btnReiniciar != null)
-            {
-                btnReiniciar.SetActive(true);
-            }
+            panelDerrota.SetActive(true);
 
         }
         else
