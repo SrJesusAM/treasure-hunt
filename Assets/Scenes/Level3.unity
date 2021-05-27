@@ -3098,9 +3098,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'No has encontrado el tesoro, pero no te preocupes,
-
-    puedes volver a intentarlo.'
+  m_Text: No has encontrado el tesoro, pero no te preocupes, spuedes volver a intentarlo.
 --- !u!222 &1382841081
 CanvasRenderer:
   m_ObjectHideFlags: 0
