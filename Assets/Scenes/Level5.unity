@@ -1269,7 +1269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &456748305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1395,7 +1395,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Has encontrado el tesoro marinero,\n\xBFVamos a por el siguiente?"
+  m_Text: "Has encontrado todos los tesoros marinero, \nte has pasado el juego. \xBFRepetimos?"
 --- !u!222 &463787292
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3611,7 +3611,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SIGUIENTE NIVEL
+  m_Text: 'MENU
+
+    PRINCIPAL'
 --- !u!222 &1458831101
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4302,7 +4304,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1913254532
@@ -4967,14 +4969,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1944384582}
-        m_MethodName: SiguienteNivel
-        m_Mode: 1
+        m_MethodName: CambiarEscena
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2047999370
