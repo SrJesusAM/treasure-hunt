@@ -43,9 +43,8 @@ public class GameController : MonoBehaviour
     private bool finAnimacion = false;
     private float xMov;
     private float yMov;
-    public float distanciaX;
-    public float distanciaY;
 
+    public int[] coordenadaMovActual = new int[2]; // Nivel 1 { 0, 1 };
     private string ultimoMovAnimacion;
     private int contadorMovimientos = 0;
     private int maxMovimientos;
@@ -218,18 +217,26 @@ public class GameController : MonoBehaviour
         {
 
             case "ABAJO":
-                this.yMov -= distanciaY;
+                coordenadaMovActual[1]--;
                 break;
             case "ARRIBA":
-                this.yMov += distanciaY;
+                coordenadaMovActual[1]++;
                 break;
             case "DERECHA":
-                this.xMov += distanciaX;
+                coordenadaMovActual[0]++;
                 break;
             default:
-                this.xMov -= distanciaX;
+                coordenadaMovActual[0]--;
                 break;
         }
+
+
+        string name = "point_" + coordenadaMovActual[0] + "_" + coordenadaMovActual[1];
+        print(name);
+        GameObject posNueva = GameObject.Find(name);
+        this.yMov = posNueva.transform.position.y;
+        this.xMov = posNueva.transform.position.x;
+
     }
 
 
