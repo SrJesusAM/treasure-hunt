@@ -75,7 +75,6 @@ public class GameController : MonoBehaviour
         this.xMov = barcoObject.transform.position.x;
         this.yMov = barcoObject.transform.position.y;
 
-        this.managerScene.nivel = 4;
         if (this.managerScene.nivel < 4)
         {
             maxMovimientos = 5;
