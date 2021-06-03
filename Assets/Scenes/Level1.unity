@@ -3336,7 +3336,7 @@ MonoBehaviour:
   limitesY: 0000000001000000
   coordenadaVida: 0000000000000000
   coordenadaFlashback: 0100000001000000
-  velocidad: 40
+  velocidad: 80
   coordenadaMovActual: 0000000001000000
 --- !u!4 &619251923
 Transform:

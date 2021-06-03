@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     private bool ganarFlashback = false;
 
     // Movimiento
-    public float velocidad;
+    private float velocidad = 80;
     private bool finalizado = false;
     private bool finAnimacion = false;
     private float xMov;
@@ -140,8 +140,6 @@ public class GameController : MonoBehaviour
         float x = barcoObject.transform.position.x;
         float y = barcoObject.transform.position.y;
 
-        // print(contador + " - " + this.ultimoMovAnimacion);
-
         switch (this.ultimoMovAnimacion)
         {
             
@@ -230,8 +228,7 @@ public class GameController : MonoBehaviour
         }
 
 
-        string name = "point_" + coordenadaMovActual[0] + "_" + coordenadaMovActual[1];
-        print(name);
+        string name = "point_" + coordenadaMovActual[0] + "_" + coordenadaMovActual[1];        
         GameObject posNueva = GameObject.Find(name);
         this.yMov = posNueva.transform.position.y;
         this.xMov = posNueva.transform.position.x;
@@ -261,7 +258,6 @@ public class GameController : MonoBehaviour
 
             contador++;
             string imgSolPanelName = "imgSol" + contador;
-            // print(imgSolPanelName);
 
             GameObject imgSolObj = GameObject.Find(imgSolPanelName);
             ultimoMov = flecha;
@@ -392,15 +388,12 @@ public class GameController : MonoBehaviour
         {
 
             posActual = devolverPosicionActual(posActual, movimientos[i]);
-            // print(posicionInicial[0] +","+ posicionInicial[1]);
             if (!(limitesX[0] <= posActual[0] && posActual[0] <= limitesX[1] && 
                 limitesY[0] <= posicionInicial[1] && posicionInicial[1] <= limitesY[1]))
             {
                 caminoGanador = false;
             }
         }
-
-        // print(caminoGanador);
 
         return caminoGanador;
     }
