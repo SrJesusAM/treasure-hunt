@@ -13,6 +13,8 @@ public class InstruccionesController : MonoBehaviour
 
     private int panel = 1;
 
+    public GameObject panelTutorial;
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,11 @@ public class InstruccionesController : MonoBehaviour
         panel--;
         modificarPanel(panel, true);
 
+    }
+
+    public void finalizarTutorial()
+    {
+        panelTutorial.SetActive(false);
     }
 
     public void modificarPanel(int numero, bool valor)
