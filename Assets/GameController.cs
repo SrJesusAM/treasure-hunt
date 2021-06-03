@@ -251,7 +251,7 @@ public class GameController : MonoBehaviour
 
     public void movimiento(string flecha)
     {
-        if (contador < maxMovimientos)
+        if (contador < maxMovimientos && !finalizado)
         {
 
             movimientos[contador] = flecha;
