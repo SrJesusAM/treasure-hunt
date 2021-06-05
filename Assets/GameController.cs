@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     private bool ganarFlashback = false;
 
     // Movimiento
-    private float velocidad = 80;
+    private float velocidad = 160;
     private bool finalizado = false;
     private bool finAnimacion = false;
     private float xMov;
