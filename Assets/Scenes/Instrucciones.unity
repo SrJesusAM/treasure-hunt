@@ -2738,7 +2738,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Men\xDA principal:\n\nDale al bot\xF3n de \"JUGAR\" para empezar a jugar\n\nDale
+  m_Text: "Men\xFA principal:\n\nDale al bot\xF3n de \"PLAY\" para empezar a jugar\n\nDale
     al bot\xF3n de instrucciones si deseas ver el funcionamiento del juego."
 --- !u!222 &1922626038
 CanvasRenderer:
