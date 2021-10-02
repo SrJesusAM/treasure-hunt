@@ -434,7 +434,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            flashbackNObject.GetComponent<Text>().text = "Intentelo de nuevo";
+            flashbackNObject.GetComponent<Text>().text = "Inténtelo de nuevo";
             flashbackNObject.GetComponent<Text>().color = Color.red;
         }
 

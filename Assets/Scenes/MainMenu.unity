@@ -331,7 +331,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAY
+  m_Text: JUGAR
 --- !u!222 &678077359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MENU PRINCIPAL
+  m_Text: "MEN\xDA PRINCIPAL"
 --- !u!222 &1416454310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -914,6 +914,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nivel: 0
   barco: 0
+  vidas: 0
+  flashbacks: 0
 --- !u!4 &2102283443
 Transform:
   m_ObjectHideFlags: 0

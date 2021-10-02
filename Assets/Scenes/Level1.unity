@@ -915,8 +915,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Aqu\xED se muestran los flashback que te quedan, podras usarlos para retroceder
-    un movimiento."
+  m_Text: "Aqu\xED se muestran los flashback que te quedan, podr\xE1s usarlos para
+    retroceder un movimiento."
 --- !u!222 &172940834
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3336,7 +3336,6 @@ MonoBehaviour:
   limitesY: 0000000001000000
   coordenadaVida: 0000000000000000
   coordenadaFlashback: 0100000001000000
-  velocidad: 80
   coordenadaMovActual: 0000000001000000
 --- !u!4 &619251923
 Transform:
@@ -3618,7 +3617,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Aqu\xED encontraras el mapa del juego, en el cual te aparece el barco seleccionado
-    desde el punto de origen, deberas encontrar la secuencia l\xF3gica para encontrar
+    desde el punto de origen, deber\xE1s encontrar la secuencia l\xF3gica para encontrar
     el tesoro.\n\nPodr\xE1s por el camino obtener otras recompensas como vidas y flashbacks
     extras."
 --- !u!222 &685131216
@@ -3770,7 +3769,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Aqu\xED se muestran las vidas que te quedan, si finalizas incorrectamente
-    la partida perderas una vida."
+    la partida perder\xE1s una vida."
 --- !u!222 &700979274
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6262,8 +6261,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Aqu\xED se muestra los controles del juego:\n\n- Bot\xF3n flashback: Para
-    volver un movimiento atras.\n\n- Bot\xF3n finalizar: Cuando creas que tienes la
-    soluci\xF3n dale al bot\xF3n de finalizar.\n\n- Botones de manejo: Selecciona
+    volver un movimiento atr\xE1s.\n\n- Bot\xF3n finalizar: Cuando creas que tienes
+    la soluci\xF3n dale al bot\xF3n de finalizar.\n\n- Botones de manejo: Selecciona
     la flecha que creas que deber\xEDa seguir el barco para encontrar el tesoro."
 --- !u!222 &1387061713
 CanvasRenderer:

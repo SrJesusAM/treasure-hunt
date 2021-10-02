@@ -252,9 +252,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Seleccion de barcos:\n\nAqu\xED se elegir\xE1 un barco para jugar, deberas
-    usar las tarjetas y apuntar con la camara del movil, una vez se muestre el barco
-    podras seleccionarlo.\n\nSe dispone de hasta 3 barcos."
+  m_Text: "Selecci\xF3n de barcos:\r\n\r\nAqu\xED se elegir\xE1 un barco para jugar,
+    deber\xE1s usar las tarjetas y apuntar con la c\xE1mara del m\xF3vil, una vez
+    se muestre el barco podr\xE1s seleccionarlo.\r\n\r\nSe dispone de hasta 3 barcos.\r"
 --- !u!222 &10937183
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -965,6 +965,7 @@ MonoBehaviour:
   panel3: {fileID: 101180765}
   panel4: {fileID: 928801398}
   panel5: {fileID: 456847252}
+  panelTutorial: {fileID: 0}
 --- !u!4 &532663067
 Transform:
   m_ObjectHideFlags: 0
@@ -1791,9 +1792,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Seleccion de niveles:\n\nAqu\xED se elegir\xE1 un nivel para jugar, si
-    eres principiante se recomienda empezar desde el nivel 1.\n\nSe dispone de hasta
-    5 niveles de menor a mayor dificultad."
+  m_Text: "Selecci\xF3n de niveles:\n\nAqu\xED se elegir\xE1 un nivel para jugar,
+    si eres principiante se recomienda empezar desde el nivel 1.\n\nSe dispone de
+    hasta 5 niveles de menor a mayor dificultad."
 --- !u!222 &1257212980
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2066,10 +2067,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Deberas resolver la secuencia logica para llegar al destino (el tesoro).\n\n1.-
-    Mediante las flechas selecciona la secuencia logica (Podras ver tu soluci\xF3n
-    en el panel).\n\n2.- Podr\xE1s volver a un movimiento para atras con los flashback.\n\n3.-
-    Una vez finalizado dale a finalizar."
+  m_Text: "Deber\xE1s resolver la secuencia l\xF3gica para llegar al destino (el tesoro).\r\n\r\n1.-
+    Mediante las flechas selecciona la secuencia l\xF3gica (podr\xE1s ver tu soluci\xF3n
+    en el panel).\r\n\r\n2.- Podr\xE1s volver a un movimiento para atr\xE1s con los
+    flashbacks.\r\n\r\n3.- Una vez finalizado dale a finalizar.\r\n"
 --- !u!222 &1386569235
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2218,8 +2219,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Fin de nivel/juego:\n\nEn esta seccion habras finalizado el juego.\n\nPodr\xE1s
-    \"Repetir Nivel\" o ir al \"Siguiente Nivel\" en funci\xF3n de tu resultado."
+  m_Text: "Fin de nivel/juego:\r\n\r\nEn esta secci\xF3n habr\xE1s finalizado el juego.\r\n\r\nPodr\xE1s
+    \"Repetir Nivel\" o ir al \"Siguiente Nivel\" en funci\xF3n de tu resultado.\r"
 --- !u!222 &1445544139
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2737,7 +2738,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Menu principal:\n\nDale al bot\xF3n de \"PLAY\" para empezar a jugar\n\nDale
+  m_Text: "Men\xDA principal:\n\nDale al bot\xF3n de \"JUGAR\" para empezar a jugar\n\nDale
     al bot\xF3n de instrucciones si deseas ver el funcionamiento del juego."
 --- !u!222 &1922626038
 CanvasRenderer:
